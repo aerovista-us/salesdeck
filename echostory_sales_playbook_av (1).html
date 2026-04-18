@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EchoStory Sales Playbook | AeroVista</title>
+  <style>
+    :root{
+      --bg:#081224;
+      --bg2:#0d1e39;
+      --panel:rgba(10,22,46,.86);
+      --panel2:rgba(14,30,60,.96);
+      --line:rgba(120,180,255,.18);
+      --text:#f7fbff;
+      --muted:#bfd0ec;
+      --gold:#ffcb37;
+      --gold2:#ff9800;
+      --blue:#4b97ff;
+      --green:#7fe26a;
+      --red:#ff7b7b;
+      --shadow:0 20px 50px rgba(0,0,0,.36);
+      --max:1160px;
+      --r:24px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;color:var(--text);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(75,151,255,.22), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(255,203,55,.10), transparent 24%),
+        linear-gradient(180deg,var(--bg2),var(--bg));
+      min-height:100%;
+    }
+    body::before{
+      content:"";
+      position:fixed;inset:0;pointer-events:none;opacity:.65;
+      background:
+        radial-gradient(2px 2px at 10% 15%, rgba(255,255,255,.8), transparent 60%),
+        radial-gradient(2px 2px at 72% 12%, rgba(255,255,255,.75), transparent 60%),
+        radial-gradient(2px 2px at 86% 28%, rgba(255,255,255,.9), transparent 60%),
+        radial-gradient(2px 2px at 18% 64%, rgba(255,255,255,.6), transparent 60%);
+    }
+    .wrap{width:min(100%,var(--max));margin:0 auto;padding:18px 16px 46px;position:relative;z-index:1}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .brand{display:flex;gap:10px;flex-wrap:wrap}
+    .chip{
+      border:1px solid var(--line);background:rgba(255,255,255,.04);padding:8px 12px;border-radius:999px;
+      color:var(--muted);font-size:.84rem;backdrop-filter:blur(10px)
+    }
+    .chip strong{color:#fff}
+    .hero{
+      display:grid;grid-template-columns:1fr;gap:18px;align-items:center;margin-bottom:18px
+    }
+    .panel{
+      background:linear-gradient(180deg, rgba(11,24,48,.8), rgba(8,18,36,.92));
+      border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)
+    }
+    .hero-copy{padding:26px 22px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.14em;
+      font-size:.72rem;font-weight:800;color:#d9ffbb;margin-bottom:10px
+    }
+    .eyebrow::before{
+      content:"";width:8px;height:8px;border-radius:999px;background:linear-gradient(180deg,var(--gold),var(--gold2));
+      box-shadow:0 0 12px rgba(255,203,55,.65)
+    }
+    h1{margin:0;font-size:clamp(2.1rem,7vw,4.5rem);line-height:.94;letter-spacing:-.04em}
+    .gold{
+      display:block;background:linear-gradient(180deg,#ffe77d 0%, #ffc933 40%, #ff9900 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent
+    }
+    .white{display:block;color:#f4f8ff;font-size:.46em;margin-top:6px}
+    .lede{margin:14px 0 0;color:var(--muted);font-size:1rem;line-height:1.6;max-width:62ch}
+    .hero-media{overflow:hidden}
+    .hero-media img{display:block;width:100%;height:100%;object-fit:cover}
+    .grid{display:grid;gap:18px;grid-template-columns:1fr}
+    .section{padding:20px}
+    .section h2{margin:0 0 10px;font-size:1.45rem}
+    .section p{margin:0;color:var(--muted);line-height:1.6}
+    .cards{display:grid;gap:14px;grid-template-columns:1fr;margin-top:16px}
+    .card{
+      border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:22px;padding:16px
+    }
+    .card h3{margin:0 0 8px;font-size:1.05rem}
+    .card p,.card li{color:var(--muted);line-height:1.6}
+    .card ul{margin:0;padding-left:18px}
+    .pricing{display:grid;gap:14px;grid-template-columns:1fr;margin-top:16px}
+    .price{
+      border:1px solid var(--line);background:linear-gradient(180deg, rgba(17,34,66,.9), rgba(10,21,39,.96));
+      border-radius:24px;padding:18px
+    }
+    .price.featured{border-color:rgba(255,203,55,.32)}
+    .tag{
+      display:inline-block;margin-bottom:10px;padding:7px 10px;border-radius:999px;font-size:.74rem;font-weight:900;
+      letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.06);color:#fff5c2;border:1px solid rgba(255,255,255,.08)
+    }
+    .amt{margin:10px 0 12px;font-size:2rem;font-weight:900}
+    .price ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.65}
+    table{
+      width:100%;border-collapse:collapse;margin-top:14px;overflow:hidden;border-radius:18px;
+      border:1px solid var(--line);background:rgba(255,255,255,.03)
+    }
+    th,td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;font-size:.94rem}
+    th{color:#fff;background:rgba(255,255,255,.04)}
+    td{color:var(--muted)}
+    .good{color:#d8ffc8}
+    .warn{color:#fff0b3}
+    .bad{color:#ffd0d0}
+    .quote{
+      margin-top:14px;padding:16px 18px;border-left:4px solid var(--gold);background:rgba(255,255,255,.03);
+      color:#eef5ff;border-radius:0 16px 16px 0;font-weight:600;line-height:1.6
+    }
+    .footer{padding-top:16px;text-align:center;color:var(--muted);font-size:.84rem}
+    @media (min-width:900px){
+      .hero{grid-template-columns:1.05fr .95fr}
+      .cards{grid-template-columns:1fr 1fr}
+      .pricing{grid-template-columns:1fr 1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="chip"><strong>EchoStory</strong></div>
+        <div class="chip"><strong>EchoVerse</strong></div>
+        <div class="chip"><strong>AeroVista</strong></div>
+      </div>
+      <div class="chip">Internal sales playbook</div>
+    </div>
+
+    <section class="hero">
+      <div class="panel hero-copy">
+        <div class="eyebrow">AeroVista sales enablement</div>
+        <h1><span class="gold">EchoStory</span><span class="white">Sales Playbook</span></h1>
+        <p class="lede">This offer is not “a webpage with music.” It is a fully custom digital gift experience built around one person. The customer is buying emotion, personalization, presentation, and a moment they can share.</p>
+      </div>
+      <div class="panel hero-media">
+        <img src="echostory_sales_playbook_montage.png" alt="EchoStory sales playbook montage">
+      </div>
+    </section>
+
+    <section class="panel section">
+      <h2>What the customer is actually buying</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>The real offer</h3>
+          <ul>
+            <li>Custom-written songs using names, hobbies, memories, and direct messages.</li>
+            <li>Custom story arc and themed presentation.</li>
+            <li>Interactive reveal pages, music players, and gift-delivery flow.</li>
+            <li>Custom art direction and page styling around the recipient.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What to avoid saying</h3>
+          <ul>
+            <li>Do not call it a “simple HTML page.”</li>
+            <li>Do not frame it like a generic music player.</li>
+            <li>Do not lead with technical features before emotional value.</li>
+            <li>Do not discount too early.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="quote">Best framing: “We create a personalized digital gift world around the person you care about — with custom songs, custom story, custom visuals, and an interactive reveal experience.”</div>
+    </section>
+
+    <section class="panel section">
+      <h2>Package ladder</h2>
+      <div class="pricing">
+        <div class="price">
+          <div class="tag">Starter</div>
+          <h3>EchoStory Gift Mini</h3>
+          <div class="amt">$299–$449</div>
+          <ul>
+            <li>Smaller custom experience</li>
+            <li>Single-page flow</li>
+            <li>Light personalization</li>
+            <li>Best for simpler budgets</li>
+          </ul>
+        </div>
+        <div class="price featured">
+          <div class="tag">Core Offer</div>
+          <h3>EchoStory Gift Deluxe</h3>
+          <div class="amt">$799–$1,099</div>
+          <ul>
+            <li>Most common close range</li>
+            <li>Multiple custom songs or chapters</li>
+            <li>Reveal page + full player experience</li>
+            <li>Custom copy, story arc, and themed visuals</li>
+          </ul>
+        </div>
+        <div class="price">
+          <div class="tag">Premium</div>
+          <h3>EchoStory Signature</h3>
+          <div class="amt">$1,500–$2,500+</div>
+          <ul>
+            <li>High-touch milestone gift</li>
+            <li>More scenes, songs, revisions, and polish</li>
+            <li>Best for emotionally significant occasions</li>
+            <li>Stronger storytelling and premium presentation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel section">
+      <h2>Commission structure for a commission-only team</h2>
+      <p>Because this is a commission-only role, commission needs to be meaningful enough to reward prospecting, pitching, follow-up, and closing effort.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Deal Tier</th>
+            <th>Rep Commission</th>
+            <th>How to use it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Full-price close</td>
+            <td class="good"><strong>20%</strong></td>
+            <td>Primary target. Protect this whenever possible.</td>
+          </tr>
+          <tr>
+            <td>Small courtesy discount</td>
+            <td class="good"><strong>17%</strong></td>
+            <td>Use only when a buyer is serious but hesitating on timing.</td>
+          </tr>
+          <tr>
+            <td>Moderate save-the-sale discount</td>
+            <td class="warn"><strong>14%</strong></td>
+            <td>Use only with clear buying signals and real price resistance.</td>
+          </tr>
+          <tr>
+            <td>Last-step rescue discount</td>
+            <td class="warn"><strong>10%</strong></td>
+            <td>Manager-approved closer. Use sparingly to preserve value.</td>
+          </tr>
+          <tr>
+            <td>Deep discount / exception</td>
+            <td class="bad"><strong>5%</strong></td>
+            <td>Rare emergency use only. Better to hold price than live here.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel section">
+      <h2>Step-down pricing and step-down commission</h2>
+      <p>Discounting should always feel controlled. The rep should know that every discount step lowers commission.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Package Example</th>
+            <th>Public Price</th>
+            <th>Save Level 1</th>
+            <th>Save Level 2</th>
+            <th>Save Level 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Deluxe low end</td>
+            <td>$799</td>
+            <td>$749</td>
+            <td>$699</td>
+            <td>$649</td>
+          </tr>
+          <tr>
+            <td>Deluxe mid</td>
+            <td>$949</td>
+            <td>$899</td>
+            <td>$849</td>
+            <td>$799</td>
+          </tr>
+          <tr>
+            <td>Deluxe high end</td>
+            <td>$1,099</td>
+            <td>$1,049</td>
+            <td>$999</td>
+            <td>$949</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Discount Step</th>
+            <th>Rep Commission</th>
+            <th>Guidance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>No discount</td>
+            <td class="good">20%</td>
+            <td>Lead with this. Best payout for the rep.</td>
+          </tr>
+          <tr>
+            <td>Step 1</td>
+            <td class="good">17%</td>
+            <td>Offer only after value has been fully explained.</td>
+          </tr>
+          <tr>
+            <td>Step 2</td>
+            <td class="warn">14%</td>
+            <td>Use if the buyer says yes at the lower number today.</td>
+          </tr>
+          <tr>
+            <td>Step 3</td>
+            <td class="warn">10%</td>
+            <td>Final close tool, not a starting point.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel section">
+      <h2>How to defend price</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Anchor to emotion</h3>
+          <p>“This is built around one person. The songs, story, visuals, and reveal are all customized. It is closer to commissioning a keepsake than buying a generic website.”</p>
+        </div>
+        <div class="card">
+          <h3>Anchor to originality</h3>
+          <p>“This is not a template with a name dropped in. It is custom lyrics, custom structure, custom presentation, and a delivery experience built around the relationship.”</p>
+        </div>
+        <div class="card">
+          <h3>Anchor to memory value</h3>
+          <p>“People forget links. They remember moments. This is designed to feel like opening a gift, not receiving a file.”</p>
+        </div>
+        <div class="card">
+          <h3>Anchor to scope</h3>
+          <p>“There are multiple creative disciplines inside this: writing, personalization, song concepting, page design, interactive build, and final delivery polish.”</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel section">
+      <h2>When to use discounts</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Use a discount when</h3>
+          <ul>
+            <li>The buyer clearly wants it but is stuck on budget.</li>
+            <li>The occasion is time-sensitive and a smaller concession closes now.</li>
+            <li>The buyer is comparing this to another gift option and needs a push.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Do not use a discount when</h3>
+          <ul>
+            <li>The rep has not yet fully explained the value.</li>
+            <li>The buyer is just browsing.</li>
+            <li>The buyer has not shared enough intent signals to justify a concession.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="quote">Rule of thumb: defend value first, discount second, and only discount with a purpose. Every step down should feel earned.</div>
+    </section>
+
+    <section class="panel section">
+      <h2>Easy pitch flow</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>1. Open</h3>
+          <p>“This is a fully custom digital gift experience built around the person you’re buying for.”</p>
+        </div>
+        <div class="card">
+          <h3>2. Personalize</h3>
+          <p>Ask about the recipient’s name, hobbies, relationship, occasion, favorite things, and emotional tone.</p>
+        </div>
+        <div class="card">
+          <h3>3. Paint the picture</h3>
+          <p>Describe the reveal moment, the custom songs, the story world, and how the person will feel opening it.</p>
+        </div>
+        <div class="card">
+          <h3>4. Price confidently</h3>
+          <p>Present Deluxe first. That is the main value package and easiest range to defend.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">EchoStory by EchoVerse · an AeroVista Production</div>
+  </div>
+</body>
+</html>
